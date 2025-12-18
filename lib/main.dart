@@ -62,15 +62,26 @@ class MyAppState extends ChangeNotifier {
     item.isDone = !item.isDone;
     itemList.remove(item);
     completedItemList.add(item);
+
     notifyListeners();
   }
+
+  void resotreItem(ToDoItem item) {
+    item.isDone = !item.isDone;
+    completedItemList.remove(item);
+    itemList.add(item);
+
+    item.isFavorite = !item.isFavorite; // favotiteItem() will flip favoite var back 
+    favoriteItem(item);
+
+    notifyListeners();
+
+  }
+
 }
 
 // TODO FOR DEC 18
 // make the coloum scrollabel if you add too many items app breaks
-// implement sort button
-// remove the completed items list, and create a shown list that communicates with item list
-// shown list is always the one shown, and contains itmelist - any filters at all times
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -297,7 +308,7 @@ class ArchivedToDoListItem extends StatelessWidget {
         SizedBox(width: 10),
         ElevatedButton.icon(
           onPressed: () {
-            print("pressed");
+            appState.resotreItem(item);
           },
           icon: Icon(Icons.restore),
           label: Text("Restore"),
