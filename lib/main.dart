@@ -156,7 +156,7 @@ class CurrentPage extends StatelessWidget {
     return Column(
       children: [
         Expanded(
-          child: Column(
+          child: ListView(
             children: [
               for (int i = 0; i < appState.itemList.length; i++)
                 Padding(
@@ -277,7 +277,7 @@ class ArchivedPage extends StatelessWidget {
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
 
-    return Column(
+    return ListView(
       children: [
         for (int i = 0; i < appState.completedItemList.length; i++)
           Padding(
