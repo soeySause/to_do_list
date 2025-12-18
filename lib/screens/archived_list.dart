@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../states/app_sate.dart';
-import '../widgets/archived_to_do_list_item.dart';
+import '../widgets/to_do_list_item_archived.dart';
 
 class ArchivedPage extends StatelessWidget {
   const ArchivedPage({super.key});
@@ -15,7 +15,7 @@ class ArchivedPage extends StatelessWidget {
         for (int i = 0; i < appState.completedItemList.length; i++)
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            child: ArchivedToDoListItem(i: i),
+            child: ToDoListItemArchived(i: i),
           ),
       ],
     );

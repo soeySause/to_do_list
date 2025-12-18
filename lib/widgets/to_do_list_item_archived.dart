@@ -3,10 +3,10 @@ import 'package:provider/provider.dart';
 import '../states/app_sate.dart';
 import '../models/to_do_item.dart';
 
-class ArchivedToDoListItem extends StatelessWidget {
+class ToDoListItemArchived extends StatelessWidget {
   final int i;
 
-  const ArchivedToDoListItem({required this.i, super.key});
+  const ToDoListItemArchived({required this.i, super.key});
 
   @override
   Widget build(BuildContext context) {

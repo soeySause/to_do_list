@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import './archived_pages.dart';
+import 'archived_list.dart';
 import './current_list.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -25,7 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
     }
 
     return Scaffold(
-      appBar: AppBar(title: const Text('To Do List')),
+      appBar: AppBar(),
       body: Row(
         children: [
           SafeArea(
