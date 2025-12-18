@@ -198,14 +198,7 @@ class ToDoListItem extends StatelessWidget {
           onPressed: () {
             appState.completeItem(item);
           },
-          child: Text("Complete"),
-        ),
-        SizedBox(width: 10),
-        ElevatedButton(
-          onPressed: () {
-            appState.completeItem(item);
-          },
-          child: Text("Delete"),
+          child: Text("remove"),
         ),
       ],
     );
