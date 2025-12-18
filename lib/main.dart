@@ -104,10 +104,6 @@ class _HomeScreenState extends State<HomeScreen> {
           SafeArea(
             child: NavigationRail(
               extended: false,
-              leading: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: FilterButton(),
-              ),
               destinations: [
                 NavigationRailDestination(
                   icon: Icon(Icons.home),
@@ -307,58 +303,6 @@ class ArchivedToDoListItem extends StatelessWidget {
           label: Text("Restore"),
         ),
       ],
-    );
-  }
-}
-
-
-
-class FilterButton extends StatefulWidget {
-  @override
-  _FilterButtonState createState() => _FilterButtonState();
-}
-
-class _FilterButtonState extends State<FilterButton> {
-  final List<String> options = ['Favorite', 'Completed', 'Deleted'];
-  final Set<String> selectedOptions = {};
-
-  @override
-  Widget build(BuildContext context) {
-    return PopupMenuButton<String>(
-      itemBuilder: (context) {
-        return options.map((option) {
-          return PopupMenuItem<String>(
-            value: option,
-            enabled: false, // IMPORTANT
-            child: StatefulBuilder(
-              builder: (context, setStatePopup) {
-                return CheckboxListTile(
-                  title: Text(option),
-                  value: selectedOptions.contains(option),
-                  onChanged: (checked) {
-                    setState(() {
-                      if (checked == true) {
-                        selectedOptions.add(option);
-                      } else {
-                        selectedOptions.remove(option);
-                      }
-                    });
-                    setStatePopup(() {});
-                  },
-                );
-              },
-            ),
-          );
-        }).toList();
-      },
-      child: ElevatedButton(
-        onPressed: null,
-        child: Text(
-          selectedOptions.isEmpty
-              ? 'Filter'
-              : 'Filter (${selectedOptions.length})',
-        ),
-      ),
     );
   }
 }
