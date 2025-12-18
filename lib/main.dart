@@ -71,13 +71,12 @@ class MyAppState extends ChangeNotifier {
     completedItemList.remove(item);
     itemList.add(item);
 
-    item.isFavorite = !item.isFavorite; // favotiteItem() will flip favoite var back 
+    item.isFavorite =
+        !item.isFavorite; // favotiteItem() will flip favoite var back
     favoriteItem(item);
 
     notifyListeners();
-
   }
-
 }
 
 // TODO FOR DEC 18
@@ -91,22 +90,19 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
   var selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
-
     Widget page;
-      switch(selectedIndex) {
-        case 0:
-          page = CurrentPage();
-        case 1:
-          page = ArchivedPage();
-        default:
-          throw UnimplementedError('no widget for $selectedIndex');
-          
-      }
+    switch (selectedIndex) {
+      case 0:
+        page = CurrentPage();
+      case 1:
+        page = ArchivedPage();
+      default:
+        throw UnimplementedError('no widget for $selectedIndex');
+    }
 
     return Scaffold(
       appBar: AppBar(title: const Text('To Do List')),
@@ -133,11 +129,7 @@ class _HomeScreenState extends State<HomeScreen> {
               },
             ),
           ),
-          Expanded(
-            child: Container(
-              child: page,
-            ),
-          ),
+          Expanded(child: Container(child: page)),
         ],
       ),
     );
@@ -145,9 +137,7 @@ class _HomeScreenState extends State<HomeScreen> {
 }
 
 class CurrentPage extends StatelessWidget {
-  const CurrentPage({
-    super.key,
-  });
+  const CurrentPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -251,6 +241,11 @@ class _ToDoListAddBarState extends State<ToDoListAddBar> {
               border: OutlineInputBorder(),
             ),
             controller: _controller,
+            onSubmitted: (value) {
+              ToDoItem newItem = ToDoItem(title: _controller.text);
+              appState.addIem(newItem);
+              _controller.clear();
+            },
           ),
         ),
         SizedBox(width: 10),
@@ -267,11 +262,8 @@ class _ToDoListAddBarState extends State<ToDoListAddBar> {
   }
 }
 
-
 class ArchivedPage extends StatelessWidget {
-  const ArchivedPage({
-    super.key,
-  });
+  const ArchivedPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -281,10 +273,7 @@ class ArchivedPage extends StatelessWidget {
       children: [
         for (int i = 0; i < appState.completedItemList.length; i++)
           Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 16,
-              vertical: 8,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: ArchivedToDoListItem(i: i),
           ),
       ],
