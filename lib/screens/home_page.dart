@@ -1,36 +1,52 @@
 import 'package:flutter/material.dart';
-import 'archived_list.dart';
-import './current_list.dart';
+import 'package:go_router/go_router.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
 
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
 
-class _HomeScreenState extends State<HomeScreen> {
-  var selectedIndex = 0;
+class ScaffoldWithNestedNavigation extends StatelessWidget {
+  const ScaffoldWithNestedNavigation({
+    Key? key,
+    required this.navigationShell,
+  }) : super(
+            key: key ?? const ValueKey<String>('ScaffoldWithNestedNavigation'));
+  final StatefulNavigationShell navigationShell;
+
+  void _goBranch(int index) {
+    navigationShell.goBranch(
+      index
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    Widget page;
-    switch (selectedIndex) {
-      case 0:
-        page = CurrentPage();
-      case 1:
-        page = ArchivedPage();
-      default:
-        throw UnimplementedError('no widget for $selectedIndex');
-    }
+    return ScaffoldWithNavigationRail(
+      body: navigationShell,
+      selectedIndex: navigationShell.currentIndex,
+      onDestinationSelected: _goBranch,
+    );
+  }
+}
 
+class ScaffoldWithNavigationRail extends StatelessWidget {
+  const ScaffoldWithNavigationRail({
+    super.key,
+    required this.body,
+    required this.selectedIndex,
+    required this.onDestinationSelected,
+  });
+  final Widget body;
+  final int selectedIndex;
+  final ValueChanged<int> onDestinationSelected;
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
       body: Row(
         children: [
-          SafeArea(
-            child: NavigationRail(
-              extended: false,
+          NavigationRail(
+            selectedIndex: selectedIndex,
+            onDestinationSelected: onDestinationSelected,
+            labelType: NavigationRailLabelType.all,
               destinations: [
                 NavigationRailDestination(
                   icon: Icon(Icons.home),
@@ -41,15 +57,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   label: Text('Archive'),
                 ),
               ],
-              selectedIndex: selectedIndex,
-              onDestinationSelected: (value) {
-                setState(() {
-                  selectedIndex = value;
-                });
-              },
-            ),
           ),
-          Expanded(child: Container(child: page)),
+          const VerticalDivider(thickness: 1, width: 1),
+          // This is the main content.
+          Expanded(
+            child: body,
+          ),
         ],
       ),
     );

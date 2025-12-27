@@ -4,7 +4,6 @@ import '../states/app_sate.dart';
 import '../widgets/to_do_list_item.dart';
 import '../widgets/to_do_list_add_bar.dart';
 
-
 class CurrentPage extends StatelessWidget {
   const CurrentPage({super.key});
 
@@ -28,7 +27,12 @@ class CurrentPage extends StatelessWidget {
             ],
           ),
         ),
-        ToDoListAddBar(),
+        Padding(
+          padding: EdgeInsets.only(
+            bottom: 10
+            ), 
+          child: ToDoListAddBar()
+          ),
       ],
     );
   }
